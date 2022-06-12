@@ -15,7 +15,7 @@ def index(request):
 
 def group_list(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    posts = group.posts.all()
+    posts = group.posts.all()[:SELECT_LIMIT]
     template = 'posts/group_list.html'
     context = {
         'posts': posts,
