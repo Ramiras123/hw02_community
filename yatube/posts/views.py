@@ -1,19 +1,21 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post, Group
 
+SELECT_LIMIT = 10
+
 
 def index(request):
-    templace = 'posts/index.html'
-    posts = Post.objects.order_by('-pub_date')[:10]
+    template = 'posts/index.html'
+    posts = Post.objects.order_by('-pub_date')[:SELECT_LIMIT]
     context = {
         'posts': posts
     }
-    return render(request, templace, context)
+    return render(request, template, context)
 
 
 def group_list(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    posts = Post.objects.filter(group=group).order_by("-pub_date")[:10]
+    posts = group.posts.all()
     template = 'posts/group_list.html'
     context = {
         'posts': posts,
