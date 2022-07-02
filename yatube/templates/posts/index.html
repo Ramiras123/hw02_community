@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% block title %} Последние обновления на сайте {% endblock %}
+{% block header %}Последние обновления на сайте{% endblock %}
         {% block content %}
       <div class="container py-5">
        <p>
-        {% for post in posts %}
+        {% for post in page_obj %}
           <ul>
             <li>
               Автор: {{ post.author.get_full_name }}
@@ -19,7 +20,6 @@
           {% endif %}
           {% if not forloop.last %}<hr>{% endif %}
         {% endfor %}
-       </p>
-        </article>
       </div>
+            {% include 'includes/paginator.html' %}
   {% endblock %}
